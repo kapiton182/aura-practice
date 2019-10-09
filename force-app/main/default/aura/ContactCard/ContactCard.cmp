@@ -1,0 +1,27 @@
+<aura:component implements="force:appHostable,force:hasRecordId" controller="OutputTableController" access="global">
+  <aura:attribute name="record" type="Contact" />
+  <aura:attribute name="updateCardFunc" type="Aura.Action"  />
+  <aura:attribute name="reloadTable" type="Aura.Action"  />
+
+  <aura:method name="clearCard" />
+
+  <aura:method name="updateCard" action="{!v.updateCardFunc}">
+    <aura:attribute name="updatingRecord" type="Contact" />
+  </aura:method>
+
+  <lightning:card title="Record Details" iconName="standard:contact">
+
+      <aura:if isTrue="{!v.record}">
+        <lightning:input type="text" name="FirstName" label="First Name" value="{!v.record.FirstName}" />
+        <lightning:input type="text" name="LastName" label="Last Name" value="{!v.record.LastName}" />
+        <lightning:input type="date" name="Birthdate" label="Birthdate" value="{!v.record.Birthdate}" />
+        <lightning:input type="number" name="Amount" label="Amount" value="{!v.record.Amount__c}" />
+        <lightning:input type="email" name="Email" label="Email" value="{!v.record.Email}" />
+
+        <lightning:buttonGroup>
+          <lightning:button label="Update Record" onclick="{! c.updateRecord }" />
+          <lightning:button label="Delete Record" onclick="{! c.deleteRecord }" />
+        </lightning:buttonGroup>
+      </aura:if>
+  </lightning:card>
+</aura:component>	
