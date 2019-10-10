@@ -9,15 +9,18 @@
   <c:ContactCard 
     aura:id="card" 
     record="{!v.row}" 
+    recordId="{!v.row.Id}" 
+    deleteCardFunc = "{!c.deleteRecord}" 
     updateCardFunc="{!c.updateRecord}" />
   
   <lightning:button variant="destructive" label="Clear Card" title="Clear Card" onclick="{! c.clearCard }"/>
   
   <lightning:datatable
-    keyField="Id"
-    data="{! v.data }"
-    columns="{! v.columns }"
-    hideCheckboxColumn="true"
+    aura:id="contactTable"
+    keyField="Id" 
+    data="{! v.data }" 
+    columns="{! v.columns }" 
+    hideCheckboxColumn="true" 
     showRowNumberColumn="false" 
     onrowaction="{! c.handleRowAction }"/>
 </aura:component>

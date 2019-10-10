@@ -10,4 +10,11 @@ public class OutputTableController {
         upsert cont;
         return JSON.serialize(cont);
     }
+
+    @AuraEnabled
+    public static String delCont(String contactJson){
+        Contact cont = (Contact)JSON.deserialize(contactJSON, Contact.class);
+        delete cont;
+        return 'Contact was deleted';
+    }
 }
