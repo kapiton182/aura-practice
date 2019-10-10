@@ -19,21 +19,13 @@
   },
 
   handleRowAction: function (component, event, helper) {
-    var action = event.getParam('action');
     var row = event.getParam('row');
-    console.log(JSON.stringify(event.get('action')));
-    
-    switch (action.name) {
-      case 'view_details':
-        if (component.get('v.row.Id') === row.Id) {
-          helper.clearCard(component);
-        } else {
-          helper.showContactDetails(component, row);
-        }
-        break;
-      default:
-        helper.showContactDetails(component, row);
-        break;
+    var btn = component.find(row.Id);
+    console.log(btn);
+    if (component.get('v.row.Id') === row.Id) {
+      helper.clearCard(component);
+    } else {
+      helper.showContactDetails(component, row);
     }
   },
 

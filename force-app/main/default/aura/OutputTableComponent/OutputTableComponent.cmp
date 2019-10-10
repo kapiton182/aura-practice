@@ -6,21 +6,67 @@
 
   <aura:handler name='init' value='{!this}' action='{!c.doInit}' />
 
-  <c:ContactCard 
-    aura:id="card" 
-    record="{!v.row}" 
-    recordId="{!v.row.Id}" 
-    deleteCardFunc = "{!c.deleteRecord}" 
+  <c:ContactCard aura:id="card" record="{!v.row}" recordId="{!v.row.Id}" deleteCardFunc="{!c.deleteRecord}"
     updateCardFunc="{!c.updateRecord}" />
-  
-  <lightning:button variant="destructive" label="Clear Card" title="Clear Card" onclick="{! c.clearCard }"/>
-  
-  <lightning:datatable
+
+  <lightning:button variant="destructive" label="Clear Card" title="Clear Card" onclick="{! c.clearCard }" />
+
+  <!-- <lightning:datatable
     aura:id="contactTable"
     keyField="Id" 
     data="{! v.data }" 
     columns="{! v.columns }" 
     hideCheckboxColumn="true" 
     showRowNumberColumn="false" 
-    onrowaction="{! c.handleRowAction }"/>
+    onrowaction="{! c.handleRowAction }"/> -->
+  <table>
+    <thead>
+      <tr>
+        <th>FirstName</th>
+        <th>LastName</th>
+        <th>Birthdate</th>
+        <th>Amount</th>
+        <th>Email</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <aura:iteration items="{!v.data}" var="contact">
+        <tr>
+          <td>
+            <div>
+              <lightning:formattedText value="{!contact.FirstName}" />
+            </div>
+          </td>
+          <td>
+            <div>
+              <lightning:formattedText value="{!contact.LastName}" />
+            </div>
+          </td>
+          <td>
+            <div>
+              <lightning:formattedDateTime value="{!contact.Birthdate}" />
+            </div>
+          </td>
+          <td>
+            <div>
+              <lightning:formattedNumber value="{!contact.Amount__c}" />
+            </div>
+          </td>
+          <td>
+            <div>
+              <lightning:formattedEmail value="{!contact.Email}" />
+            </div>
+          </td>
+          <td>
+            <div>
+              <lightning:button aura:id="{!contact.Id}" variant="base" label="Show / Hide" title="Show / Hide"
+                onclick="{! c.handleRowAction }" />
+            </div>
+          </td>
+        </tr>
+      </aura:iteration>
+    </tbody>
+
+  </table>
 </aura:component>
