@@ -1,25 +1,26 @@
 <aura:component implements="force:appHostable,force:hasRecordId" controller="OutputTableController" access="global">
   <aura:attribute name="columns" type="Object[]" />
-  <aura:attribute name="data" type="Contact[]" />
+  <aura:attribute name="data" type="Object[]" />
 
-  <aura:attribute name="row" type="Contact" />
+  <aura:attribute name="currentBtn" type="Object" />
+
+  <aura:attribute name="currentRow" type="String" />
+
+  <aura:attribute name="row" type="Object" />
 
   <aura:handler name='init' value='{!this}' action='{!c.doInit}' />
-
-  <c:ContactCard aura:id="card" record="{!v.row}" recordId="{!v.row.Id}" deleteCardFunc="{!c.deleteRecord}"
+<div class="slds-col slds-size_1-of-3">
+  <c:ContactCard 
+    aura:id="card"
+    record="{!v.row}"
+    recordId="{!v.row.Id}"
+    deleteCardFunc="{!c.deleteRecord}"
     updateCardFunc="{!c.updateRecord}" />
+  </div>
 
   <lightning:button variant="destructive" label="Clear Card" title="Clear Card" onclick="{! c.clearCard }" />
 
-  <!-- <lightning:datatable
-    aura:id="contactTable"
-    keyField="Id" 
-    data="{! v.data }" 
-    columns="{! v.columns }" 
-    hideCheckboxColumn="true" 
-    showRowNumberColumn="false" 
-    onrowaction="{! c.handleRowAction }"/> -->
-  <table>
+  <table class="slds-table slds-table_cell-buffer slds-no-row-hover slds-table_bordered">
     <thead>
       <tr>
         <th>FirstName</th>
@@ -59,8 +60,9 @@
             </div>
           </td>
           <td>
-            <div>
-              <lightning:button aura:id="{!contact.Id}" variant="base" label="Show / Hide" title="Show / Hide"
+            <div aura:id="{!contact.Id}"
+            >
+              <lightning:button value="{!contact.Id}" variant="base" label="Show / Hide" title="Show / Hide"
                 onclick="{! c.handleRowAction }" />
             </div>
           </td>

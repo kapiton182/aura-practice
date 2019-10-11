@@ -1,0 +1,50 @@
+<aura:component implements="force:hasRecordId" controller="AccountTableController">
+    <aura:attribute name="record" type="Object" />
+    <aura:attribute name="updateCardFunc" type="Aura.Action" />
+    <aura:attribute name="deleteCardFunc" type="Aura.Action" />
+  
+    <aura:handler event="aura:waiting" action="{!c.showSpinner}" />
+    <aura:handler event="aura:doneWaiting" action="{!c.hideSpinner}" />
+  
+    <aura:attribute name="spinner" type="boolean" default="false" />
+  
+    <aura:method name="clearCard" />
+  
+    <aura:method name="updateCard" action="{!v.updateCardFunc}">
+      <aura:attribute name="updatingRecord" type="Object" />
+      <aura:attribute name="recordId" type="String" />
+    </aura:method>
+  
+    <aura:method name="refreshCard">
+      <aura:attribute name="row" type="Object" />
+    </aura:method>
+  
+    <aura:method name="deleteCard" action="{!v.deleteCardFunc}">
+      <aura:attribute name="delitingRecord" type="Object" />
+      <aura:attribute name="recordId" type="String" />
+    </aura:method>
+  
+    <lightning:card title="Record Details" iconName="standard:contact">
+  
+      <aura:if isTrue="{!v.spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+          <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+            <span class="slds-assistive-text">Loading</span>
+            <div class="slds-spinner__dot-a"></div>
+            <div class="slds-spinner__dot-b"></div>
+          </div>
+        </div>
+      </aura:if>
+  
+      <aura:if isTrue="{!v.record}">
+        <lightning:input type="text" name="Name" label="Name" value="{!v.record.Name}" />
+        <lightning:input type="text" name="Site" label="Site" value="{!v.record.Site}" />
+        <lightning:input type="text" name="Industry" label="Industry" value="{!v.record.Industry}" />
+
+        <lightning:buttonGroup class="button-group">
+          <lightning:button label="Update Record" onclick="{! c.updateRecord }" />
+          <lightning:button label="Delete Record" onclick="{! c.deleteRecord }" />
+        </lightning:buttonGroup>
+      </aura:if>
+    </lightning:card>
+</aura:component>	

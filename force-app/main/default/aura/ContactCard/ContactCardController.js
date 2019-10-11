@@ -17,5 +17,11 @@
 
   hideSpinner: function (component, event, helper) {
     component.set("v.spinner", false);
-  }
+  },
+
+  refreshCard: function(component, event, helper) {
+    var args = event.getParam('arguments');
+    console.log(args.row);
+    component.set('v.record', args.row);
+  },
 })

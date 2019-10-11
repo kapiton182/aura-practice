@@ -1,0 +1,28 @@
+<aura:component abstract="true" extensible="true">
+  <aura:attribute name="columns" type="Object[]" />
+  <aura:attribute name="data" type="Object[]" />
+
+  <aura:attribute name="currentBtn" type="Object" />
+
+  <aura:attribute name="currentRow" type="String" />
+
+  <aura:attribute name="row" type="Object" />
+
+  <aura:attribute name="tableHeadFacet" type="Aura.Component[]" />
+  <aura:attribute name="tableBodyFacet" type="Aura.Component[]" />
+  <aura:attribute name="recordCardFacet" type="Aura.Component[]" />
+  <aura:attribute name="clearBtn" type="Aura.Component[]" />
+  
+  <div class="slds-col slds-size_1-of-3" >
+    {!v.recordCardFacet}
+  </div>
+  {!v.clearBtn}
+  <table class="slds-table slds-table_cell-buffer slds-no-row-hover slds-table_bordered">
+    <thead>
+      {!v.tableHeadFacet}
+    </thead>
+    <tbody>
+      {!v.tableBodyFacet}
+    </tbody>
+  </table>
+</aura:component>

@@ -1,6 +1,6 @@
 ({
   getData: function (component, event) {
-    var action = component.get('c.getContacts');
+    var action = component.get('c.getRecords');
 
     action.setCallback(this, function (response) {
       var state = response.getState();
@@ -14,8 +14,8 @@
     $A.enqueueAction(action);
   },
 
-  showContactDetails: function (component, row) {
-    component.set('v.row', row);
+  showContactDetails: function (component, record) {
+    component.set('v.row', record);
   },
 
   clearCard: function (component, event) {
@@ -23,7 +23,7 @@
   },
 
   updateRecord: function (component, record, updateCallback) {
-    var action = component.get('c.updCont');
+    var action = component.get('c.updRecord');
     action.setParams({
       contactJson: JSON.stringify(record.updatingRecord)
     });
@@ -33,15 +33,9 @@
       if (state === 'SUCCESS') {
         component.set('v.row', JSON.parse(response.getReturnValue()));
         updateCallback();
-      } 
+      }
       else if (state === 'ERROR') {
-        var data = component.get('v.data');
-        for (let row of data) {
-          if (row.Id === record.Id) {
-            component.set('v.row', row);
-            break;
-          }
-        }
+        component.find('card').refreshCard(JSON.parse(component.get('v.currentRow')));
       }
       else {
         console.log('SMTH WRONG');
@@ -56,7 +50,7 @@
   },
 
   deleteRecord: function (component, record, deleteCallback) {
-    var action = component.get('c.delCont');
+    var action = component.get('c.delRecord');
     action.setParams({
       contactJson: JSON.stringify(record.delitingRecord)
     });
@@ -69,13 +63,8 @@
         deleteCallback();
       } 
       else if (state === 'ERROR') {
-        var data = component.get('v.data');;
-        for (let row of data) {
-          if (row.Id === record.Id) {
-            
-            break;
-          }
-        }
+        this.clearCard(component);
+        component.get('v.currentBtn').set('v.disabled', true);
       } else {
         console.log('SMTH WRONG');
       }

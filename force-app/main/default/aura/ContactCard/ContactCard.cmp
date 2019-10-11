@@ -1,5 +1,5 @@
 <aura:component implements="force:hasRecordId" controller="OutputTableController" access="global">
-  <aura:attribute name="record" type="Contact" />
+  <aura:attribute name="record" type="Object" />
   <aura:attribute name="updateCardFunc" type="Aura.Action" />
   <aura:attribute name="deleteCardFunc" type="Aura.Action" />
 
@@ -11,12 +11,16 @@
   <aura:method name="clearCard" />
 
   <aura:method name="updateCard" action="{!v.updateCardFunc}">
-    <aura:attribute name="updatingRecord" type="Contact" />
+    <aura:attribute name="updatingRecord" type="Object" />
     <aura:attribute name="recordId" type="String" />
   </aura:method>
 
+  <aura:method name="refreshCard">
+    <aura:attribute name="row" type="Object" />
+  </aura:method>
+
   <aura:method name="deleteCard" action="{!v.deleteCardFunc}">
-    <aura:attribute name="delitingRecord" type="Contact" />
+    <aura:attribute name="delitingRecord" type="Object" />
     <aura:attribute name="recordId" type="String" />
   </aura:method>
 
@@ -39,7 +43,7 @@
       <lightning:input type="number" name="Amount" label="Amount" value="{!v.record.Amount__c}" />
       <lightning:input type="email" name="Email" label="Email" value="{!v.record.Email}" />
 
-      <lightning:buttonGroup>
+      <lightning:buttonGroup class="button-group">
         <lightning:button label="Update Record" onclick="{! c.updateRecord }" />
         <lightning:button label="Delete Record" onclick="{! c.deleteRecord }" />
       </lightning:buttonGroup>

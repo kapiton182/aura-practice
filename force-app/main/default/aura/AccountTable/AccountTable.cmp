@@ -1,0 +1,55 @@
+<aura:component implements="force:appHostable,force:hasRecordId" controller="AccountTableController" extends="c:TableSuper">
+  <aura:set attribute="recordCardFacet">
+    <c:AccountCard 
+      aura:id="card"
+      record="{!v.row}" 
+      recordId="{!v.row.Id}" 
+      deleteCardFunc="{!c.deleteRecord}"
+      updateCardFunc="{!c.updateRecord}" />
+  </aura:set>
+
+  <aura:handler name='init' value='{!this}' action='{!c.doInit}' />
+
+  <aura:set attribute="clearBtn">
+    <lightning:button 
+      variant="destructive" 
+      label="Clear Card" 
+      title="Clear Card" 
+      onclick="{! c.clearCard }" />
+  </aura:set>
+
+  <aura:set attribute="tableHeadFacet">
+    <tr>
+      <th>Name</th>
+      <th>Site</th>
+      <th>Industry</th>
+    </tr>
+  </aura:set>
+  <aura:set attribute="tableBodyFacet">
+    <aura:iteration items="{!v.data}" var="account">
+      <tr>
+        <td>
+          <div>
+            <lightning:formattedText value="{!account.Name}" />
+          </div>
+        </td>
+        <td>
+          <div>
+            <lightning:formattedUrl value="{!account.Site}" />
+          </div>
+        </td>
+        <td>
+          <div>
+            <lightning:formattedText value="{!account.Industry}" />
+          </div>
+        </td>
+        <td>
+          <div>
+            <lightning:button value="{!account.Id}" variant="base" label="Show / Hide" title="Show / Hide"
+              onclick="{! c.handleRowAction }" />
+          </div>
+        </td>
+      </tr>
+    </aura:iteration>
+  </aura:set>
+</aura:component>
